@@ -67,4 +67,4 @@ func SearchByNameInDir(keyword string, dir string) (*[]File, error) {
 func DeleteWithDir(dir string) error {
 	return conf.DB.Where("dir like ?", fmt.Sprintf("%s%%", dir)).Delete(&File{}).Error
 }
- 
+
