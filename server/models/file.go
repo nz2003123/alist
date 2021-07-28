@@ -50,7 +50,7 @@ func GetFilesByDir(dir string) (*[]File, error) {
 
 func SearchByNameGlobal(keyword string) (*[]File, error) {
 	var files []File
-	if err := conf.DB.Where("name LIKE ? AND password = ''", fmt.Sprintf("%%%s%%", keyword)).Find(&files).Error; err != nil {
+	if err := conf.DB.Where("name LIKE ? ", fmt.Sprintf("%%%s%%", keyword)).Find(&files).Error; err != nil {
 		return nil, err
 	}
 	return &files, nil
@@ -58,7 +58,7 @@ func SearchByNameGlobal(keyword string) (*[]File, error) {
 
 func SearchByNameInDir(keyword string, dir string) (*[]File, error) {
 	var files []File
-	if err := conf.DB.Where("dir LIKE ? AND name LIKE", fmt.Sprintf("%s%%", dir), fmt.Sprintf("%%%s%%", keyword)).Find(&files).Error; err != nil {
+	if err := conf.DB.Where("dir LIKE ? AND name LIKE ? ", fmt.Sprintf("%s%%", dir), fmt.Sprintf("%%%s%%", keyword)).Find(&files).Error; err != nil {
 		return nil, err
 	}
 	return &files, nil
